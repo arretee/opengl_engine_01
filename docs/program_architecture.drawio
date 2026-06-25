@@ -1,0 +1,39 @@
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.6.1 Chrome/142.0.7444.265 Electron/39.8.10 Safari/537.36" version="29.6.1">
+  <diagram name="Page-1" id="zQqKvGRFee2a5CoWIMsF">
+    <mxGraphModel dx="2625" dy="1228" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" background="none" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p75IYekV8TNPED1ohvq5-1" parent="1" style="verticalLabelPosition=bottom;verticalAlign=top;html=1;shape=mxgraph.basic.rect;fillColor2=none;strokeWidth=1;size=20;indent=5;" value="" vertex="1">
+          <mxGeometry height="40" width="200" x="-760" y="-80" as="geometry" />
+        </mxCell>
+        <mxCell id="p75IYekV8TNPED1ohvq5-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="20" width="200" x="-760" as="geometry" />
+        </mxCell>
+        <mxCell id="p75IYekV8TNPED1ohvq5-5" edge="1" parent="1" source="p75IYekV8TNPED1ohvq5-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="p75IYekV8TNPED1ohvq5-3">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p75IYekV8TNPED1ohvq5-4" parent="1" style="text;html=1;whiteSpace=wrap;align=center;verticalAlign=middle;rounded=0;" value="main.cpp" vertex="1">
+          <mxGeometry height="40" width="200" x="-760" y="-80" as="geometry" />
+        </mxCell>
+        <mxCell id="p75IYekV8TNPED1ohvq5-9" edge="1" parent="1" source="p75IYekV8TNPED1ohvq5-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="p75IYekV8TNPED1ohvq5-7">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-780" y="30" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="p75IYekV8TNPED1ohvq5-11" edge="1" parent="1" source="p75IYekV8TNPED1ohvq5-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="p75IYekV8TNPED1ohvq5-10">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p75IYekV8TNPED1ohvq5-6" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="init OpenGL, Start Engine" vertex="1">
+          <mxGeometry height="20" width="200" x="-760" as="geometry" />
+        </mxCell>
+        <mxCell id="p75IYekV8TNPED1ohvq5-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="OpenGL init&lt;div&gt;compile shaders&lt;/div&gt;&lt;div&gt;start main loop at main.py for OpenGL&lt;/div&gt;" vertex="1">
+          <mxGeometry height="60" width="120" x="-840" y="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p75IYekV8TNPED1ohvq5-10" parent="1" style="whiteSpace=wrap;html=1;" value="Start 3D engine" vertex="1">
+          <mxGeometry height="60" width="120" x="-560" y="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
