@@ -44,6 +44,7 @@ int main()
     }
 
     // Create window 
+    glfwWindowHint(GLFW_DEPTH_BITS, 24);
     window = glfwCreateWindow(window_w, window_h, "OpenGL", nullptr, nullptr);
 
     // Check that window created
@@ -107,6 +108,11 @@ int main()
     std::cout << "projection "; projection.print_gl(); std::cout << std::endl;
 
 
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
+
     // Main Loop
     while (!glfwWindowShouldClose(window))
     {
@@ -121,7 +127,7 @@ int main()
 
         // Clear window
         glClearColor(0.25f, 0.5f, 0.75f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         // Update translation 
         translation = glm::create_traslation_matrix(trans_pos);

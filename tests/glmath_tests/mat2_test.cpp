@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 
-#include "../../include/glmath.h"
+#include "../../include/glmath/glmath.h"
 
 // -------------------- Constructors checks --------------------
 TEST(mat2Constructors, mat2DefaultConstructorTest) {

@@ -17,23 +17,29 @@ TriangleMesh::TriangleMesh() {
     };
 
     std::vector<int> elements = {
-         3, 2, 0, 
-         0, 1, 3,
+        // Front
+        0, 1, 3,
+        3, 2, 0, 
+        
+        // Back
+        5, 4, 6, 
+        6, 7, 5,
 
-         0, 4, 6,
-         6, 2, 0,
+        // Left
+        4, 0, 2,
+        2, 6, 4,
 
-         5, 4, 0,
-         0, 1, 5,
+        // Right
+        1, 5, 7,
+        7, 3, 1,
 
-         2, 6, 7,
-         7, 3, 2,
+        // Top
+        2, 3, 7,
+        7, 6, 2,
 
-         4, 5, 7, 
-         7, 6, 4,
-
-         1, 5, 7,
-         7, 3, 1,
+        // Bottom
+        4, 5, 1,
+        1, 0, 4,
     };
 
     std::vector<float> colors = {
@@ -63,7 +69,7 @@ TriangleMesh::TriangleMesh() {
     glGenBuffers(1, &VBOs[0]);
     glBindBuffer(GL_ARRAY_BUFFER, VBOs[0]);
     glBufferData(GL_ARRAY_BUFFER, positions.size() * sizeof(float), positions.data(), GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 12, (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glEnableVertexAttribArray(0);
 
     //color
@@ -71,7 +77,7 @@ TriangleMesh::TriangleMesh() {
     glBindBuffer(GL_ARRAY_BUFFER, VBOs[1]);
     glBufferData(GL_ARRAY_BUFFER, colors.size() * sizeof(float), colors.data(), GL_STATIC_DRAW);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 12, (void*)0);
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
     glEnableVertexAttribArray(1);
 
 

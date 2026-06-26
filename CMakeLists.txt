@@ -27,10 +27,40 @@ add_executable(opengl_engine_01
 
     include/config.h
 
-    src/triangle_mesh.cpp include/triangle_mesh.h
-    src/glmath.cpp        include/glmath.h
+    src/triangle_mesh.cpp       include/triangle_mesh.h
+
+    #glmath
+    src/glmath/glmath.cpp       include/glmath/glmath.h
+
+    src/glmath/vec2.cpp         include/glmath/vec2.h
+    src/glmath/vec3.cpp         include/glmath/vec3.h
+    src/glmath/vec4.cpp         include/glmath/vec4.h
+    src/glmath/vec_functions.cpp        include/glmath/vec_functions.h
+
+    src/glmath/mat2.cpp         include/glmath/mat2.h
+    src/glmath/mat3.cpp         include/glmath/mat3.h
+    src/glmath/mat4.cpp         include/glmath/mat4.h
+    src/glmath/mat_functions.cpp        include/glmath/mat_functions.h
+
+
+    # Model
+    src/Model/mesh.cpp          include/Model/mesh.h
+    src/Model/object.cpp        include/Model/object.h
+    src/Model/transform.cpp     include/Model/transform.h
+
+
+    # View
+    src/View/camera.cpp         include/View/camera.h
+    src/View/render.cpp         include/View/render.h
+
+    
+    # Controller
+    src/Controller/engine.cpp   include/Controller/engine.h
+    src/Controller/input.cpp    include/Controller/input.h
 )
 target_include_directories(opengl_engine_01 PRIVATE include)
+
+
 
 target_link_libraries(opengl_engine_01
     OpenGL::GL
@@ -42,8 +72,21 @@ target_link_libraries(opengl_engine_01
 # Glmath
 enable_testing()
 add_executable(GLmath_UnitTest
-    include/glmath.h        src/glmath.cpp
+    #glmath
+    src/glmath/glmath.cpp       include/glmath/glmath.h
 
+    src/glmath/vec2.cpp         include/glmath/vec2.h
+    src/glmath/vec3.cpp         include/glmath/vec3.h
+    src/glmath/vec4.cpp         include/glmath/vec4.h
+    src/glmath/vec_functions.cpp        include/glmath/vec_functions.h
+
+    src/glmath/mat2.cpp         include/glmath/mat2.h
+    src/glmath/mat3.cpp         include/glmath/mat3.h
+    src/glmath/mat4.cpp         include/glmath/mat4.h
+    src/glmath/mat_functions.cpp        include/glmath/mat_functions.h
+
+
+    # Tests
     tests/glmath_tests/mat2_test.cpp
     tests/glmath_tests/mat3_test.cpp
     tests/glmath_tests/mat4_test.cpp

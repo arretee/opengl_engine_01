@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
-#include "../../include/glmath.h"
+#include "../../include/glmath/glmath.h"
+
 
 // -------------------- Constructors Tests --------------------
 TEST(vec2Constructors, DefaultConstructorTest){

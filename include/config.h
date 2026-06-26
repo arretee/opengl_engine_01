@@ -14,6 +14,13 @@
 
 
 #include "triangle_mesh.h"
-#include "glmath.h"
+#include "glmath/glmath.h"
+
+
+// Model
+#include "Model/mesh.h"
+#include "Model/transform.h"
+#include "Model/object.h"
+
 
 #endif
