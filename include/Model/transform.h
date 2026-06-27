@@ -18,7 +18,7 @@ struct Transform
     /*
         Function creates matrix of RotationM * TranslationM * Scale
     */
-    glm::mat4 getMatrix() const;
+    glm::mat4 get_matrix() const;
 };
 
 

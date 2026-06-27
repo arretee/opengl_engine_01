@@ -22,12 +22,8 @@ FetchContent_MakeAvailable(googletest)
 # Main project build
 add_executable(opengl_engine_01
     src/main.cpp
-    
     include/glad/glad.c
-
     include/config.h
-
-    src/triangle_mesh.cpp       include/triangle_mesh.h
 
     #glmath
     src/glmath/glmath.cpp       include/glmath/glmath.h

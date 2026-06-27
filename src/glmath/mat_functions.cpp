@@ -82,7 +82,7 @@ glm::mat4 glm::create_view_transform_matrix(const vec3 &from, const vec3 &to)
     vec3 f = normalize(to - from); // Create f vector 
 
     // check if f and g is not an same or reversed vectors
-    if (dot_product(f, global_up) > 0.99f)
+    if (fabs(dot_product(f, global_up)) > 0.99f)
     {
         global_up = vec3(0.0f, 1.0f, 0.0f); // choose other global up
     }
@@ -91,6 +91,18 @@ glm::mat4 glm::create_view_transform_matrix(const vec3 &from, const vec3 &to)
     vec3 r = normalize(cross_product(f, global_up));    // Create r vector
     vec3 u = normalize(cross_product(r, f));            // Create u vector
 
+
+    m.entries[0] = r.x;   m.entries[4] = r.y;   m.entries[8] = r.z;   m.entries[12] = -dot_product(r, from);
+    m.entries[1] = u.x;   m.entries[5] = u.y;   m.entries[9] = u.z;   m.entries[13] = -dot_product(u, from);
+    m.entries[2] = -f.x;  m.entries[6] = -f.y;  m.entries[10] = -f.z; m.entries[14] = dot_product(f, from);
+    m.entries[3] = 0.0f;  m.entries[7] = 0.0f;  m.entries[11] = 0.0f; m.entries[15] = 1.0f;
+
+    return m;
+}
+
+glm::mat4 glm::create_view_transform_matrix(const vec3 &from, const vec3 &f, const vec3 &r, const vec3 &u)
+{
+    mat4 m;
 
     m.entries[0] = r.x;   m.entries[4] = r.y;   m.entries[8] = r.z;   m.entries[12] = -dot_product(r, from);
     m.entries[1] = u.x;   m.entries[5] = u.y;   m.entries[9] = u.z;   m.entries[13] = -dot_product(u, from);

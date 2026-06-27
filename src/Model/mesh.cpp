@@ -14,9 +14,11 @@ Mesh::Mesh(std::vector<float>&& ver, std::vector<uint32_t>&& ind) {
 }
 
 Mesh::~Mesh(){
-    glDeleteVertexArrays(1, &VAO);
-    glDeleteBuffers(1, &VBO);
-    glDeleteBuffers(1, &EBO);
+    if(VAO != 0){
+        glDeleteVertexArrays(1, &VAO);
+        glDeleteBuffers(1, &VBO);
+        glDeleteBuffers(1, &EBO);
+    }
 }
 
 void Mesh::upload(){

@@ -60,6 +60,14 @@ namespace glm{
         output: mat4 View Transform matrix. 
     */
     mat4 create_view_transform_matrix(const vec3& from, const vec3& to);
+    /*
+        Function crteates View Transform matrix.
+
+        input: cam pos vec3, forward vector, right vector, up vector.
+        output: mat4 View Transform matrix. 
+    */
+    mat4 create_view_transform_matrix(const vec3& from, const vec3& f, const vec3& r, const vec3& u);
+
 
 
     /*

@@ -13,7 +13,6 @@
 #include <unordered_map>
 #include <memory>
 
-#include "triangle_mesh.h"
 #include "glmath/glmath.h"
 
 
@@ -22,6 +21,10 @@
 #include "Model/transform.h"
 #include "Model/object.h"
 #include "Model/meshes_manager.h"
+
+
+// View
+#include "View/camera.h"
 
 
 #endif

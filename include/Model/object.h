@@ -7,11 +7,10 @@ struct Mesh;
 
 
 class Object{
-    private:
+    public:
         std::shared_ptr<Mesh> mesh;
         Transform transform;
 
-    public:
         Object(std::shared_ptr<Mesh> mesh_ptr);
         Object(std::shared_ptr<Mesh> mesh_ptr, Transform& trans);
 

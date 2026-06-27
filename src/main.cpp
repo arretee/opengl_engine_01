@@ -4,6 +4,51 @@
 unsigned int make_shader(const std::string& vertex_filepath, const std::string& fragment_filepath);
 unsigned int make_module(const std::string& filepath, unsigned int module_type);
 
+std::vector<float> get_positions()
+{
+    return std::vector<float>{
+        -0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,  // TOP LEFT BACK       0     RED
+        0.5f, -0.5f, 0.5f, 1.0f, 0.0f, 0.0f,  // TOP LEFT FRONT       1     RED
+
+        -0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,   // TOP RIGHT BACK      2     GREEN
+        0.5f, 0.5f, 0.5f, 0.0f, 1.0f, 0.0f,   // TOP RIGHT FRONT      3     GREEN
+
+
+        -0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,  // BOTTOM LEFT BACK   4     BLUE
+        0.5f, -0.5f, -0.5f, 0.0f, 0.0f, 1.0f,  // BOTTOM LEFT FRONT   5     BLUE
+
+        -0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f,   // BOTTOM RIGHT BACK  6     BLACK
+        0.5f, 0.5f, -0.5f, 0.0f, 0.0f, 0.0f,   // BOTTOM RIGHT FRONT  7     BLACK
+    };
+}
+std::vector<uint32_t> get_elements()
+{
+    return std::vector<uint32_t>{
+        // Front
+        0, 1, 3,
+        3, 2, 0, 
+        
+        // Back
+        5, 4, 6, 
+        6, 7, 5,
+
+        // Left
+        4, 0, 2,
+        2, 6, 4,
+
+        // Right
+        1, 5, 7,
+        7, 3, 1,
+
+        // Top
+        2, 3, 7,
+        7, 6, 2,
+
+        // Bottom
+        4, 5, 1,
+        1, 0, 4,
+    };
+}
 
 int main()
 {
@@ -13,27 +58,6 @@ int main()
     unsigned int window_w = 1280;
     unsigned int window_h = 720;
     float aspect_ratio = (float) window_w / (float) window_h;    
-
-
-    // Translation data
-    glm::vec3 trans_pos = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 trans_move_dir = glm::vec3(0.0f, 0.0f, 1.0f);
-    float speed = 0.0 / 1000;
-
-
-    // Rotation data
-    float rotation_speed = 10; 
-
-
-    // View Data
-    glm::vec3 cam_pos = glm::vec3(-20.0f, 0.0f, 10.0f);
-    glm::vec3 cam_target = trans_pos;
-
-
-    // Projection
-    float pov = 45; 
-    float near = 0.01f;
-    float far = 100.0f;
 
 
     // Init OpenGL 
@@ -76,32 +100,34 @@ int main()
     glUseProgram(shader);
 
 
-    // Create triangle
-    TriangleMesh* triangle = new TriangleMesh();    
+
+    // Translation data
+    MeshesManager manager;
+
+    // Create object
+    manager.create_mesh("Cube", get_positions(), get_elements());
+    manager.get_mesh("Cube")->upload();
+    Transform t = Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
+    t.scale = glm::vec3(0.5f, 0.5f, 0.5f);
+    Object cube = Object(manager.get_mesh("Cube"), t);
+
+    // View Data
+    Camera camera;
+    camera.set_camera_pos(glm::vec3(10.0f, 5.0f, 20.0f));
+    camera.set_camera_target(glm::vec3(0.0f, 0.0f, 0.0f));
+
+    // Projection
+    float pov = 45; 
+    float near = 0.01f;
+    float far = 100.0f;
 
 
-    // translation
-    glm::mat4 translation = glm::create_traslation_matrix(trans_pos);
-    unsigned int translation_location = glGetUniformLocation(shader, "translation");
-    glUniformMatrix4fv(translation_location, 1, GL_FALSE, translation.entries);
-    std::cout << "translation "; translation.print_gl(); std::cout << std::endl;
-
-    
-    // rotation
-    glm::mat4 rotation = glm::create_rotation_z_matrix(rotation_speed * glfwGetTime());
-    unsigned int rotation_location = glGetUniformLocation(shader, "rotation");
-    glUniformMatrix4fv(rotation_location, 1, GL_FALSE, rotation.entries);
-    std::cout << "rotation "; rotation.print_gl(); std::cout << std::endl;
+    // translation + rotation + view matrix
+    glm::mat4 vrt = cube.transform.get_matrix() * camera.get_view_matrix();
+    unsigned int vrt_location = glGetUniformLocation(shader, "vrt");
 
 
-    // View
-    glm::mat4 view = glm::create_view_transform_matrix(cam_pos, cam_target);
-    unsigned int view_location = glGetUniformLocation(shader, "view");
-    glUniformMatrix4fv(view_location, 1, GL_FALSE, view.entries);
-    std::cout << "view "; view.print_gl(); std::cout << std::endl;
-
-
-    // View
+    // Projection
     glm::mat4 projection = glm::create_projection_matrix(aspect_ratio, pov, near, far);
     unsigned int projection_location = glGetUniformLocation(shader, "projection");
     glUniformMatrix4fv(projection_location, 1, GL_FALSE, projection.entries);
@@ -121,25 +147,18 @@ int main()
         // poll the events
         glfwPollEvents();
 
-        // Move the triangle
-        trans_pos = trans_pos + (trans_move_dir * speed * glfwGetTime());
-        cam_target = trans_pos;
 
         // Clear window
         glClearColor(0.25f, 0.5f, 0.75f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-        // Update translation 
-        translation = glm::create_traslation_matrix(trans_pos);
-        glUniformMatrix4fv(translation_location, 1, GL_FALSE, translation.entries);
+        // Update cube.transform
+        cube.transform.rotation = glm::vec3(20.0f, 5.0f, 5.0f) * 5 * glfwGetTime();
 
-        // Update rotation
-        rotation = glm::create_rotation_z_matrix(rotation_speed * glfwGetTime());
-        glUniformMatrix4fv(rotation_location, 1, GL_FALSE, rotation.entries);
 
-        // Update View 
-        view = glm::create_view_transform_matrix(cam_pos, cam_target);
-        glUniformMatrix4fv(view_location, 1, GL_FALSE, view.entries);
+        // Update vrt 
+        vrt = camera.get_view_matrix() * cube.transform.get_matrix();
+        glUniformMatrix4fv(vrt_location, 1, GL_FALSE, vrt.entries);
 
         // update projection
         projection = glm::create_projection_matrix(aspect_ratio, pov, near, far);
@@ -147,7 +166,7 @@ int main()
 
 
         // Draw
-        triangle->draw();
+        cube.mesh->draw(GL_TRIANGLES);
 
         // Update the window 
         glfwSwapBuffers(window);
