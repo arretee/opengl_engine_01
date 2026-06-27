@@ -15,7 +15,7 @@ namespace glm{
         
         // Constructors
         vec2();
-        vec2(float x, float y);
+        vec2(float nx, float ny);
         vec2(const vec3& v);
         vec2(const vec4& v);
         vec2(const vec2& other);
@@ -27,9 +27,10 @@ namespace glm{
         vec2 operator-(const vec2& other) const;
         vec2 operator*(float num) const;
 
-        vec2 operator+=(const vec2& other);
-        vec2 operator-=(const vec2& other);
-        vec2 operator*=(const vec2& other);
+        vec2& operator+=(const vec2& other);
+        vec2& operator-=(const vec2& other);
+        vec2& operator*=(const float num);
+
 
 
 

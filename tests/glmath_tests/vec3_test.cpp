@@ -174,6 +174,88 @@ TEST(vec3Operators, OperatorMultiplication){
 
 }
 
+TEST(vec3Operators, OperatorPlusEqual){
+    float x1, x2, x3;
+    float y1, y2, y3;
+    float z1, z2, z3;
+
+
+    x1 = 0.5f;  x2 = 1.0f;  x3 = 10.0f;
+    y1 = 0.7f;  y2 = 1.5f;  y3 = 15.2f;
+    z1 = 02.7f; z2 = 12.5f; z3 = 125.2f;
+
+
+
+    glm::vec3 v1(x1, y1, z1);
+    glm::vec3 v2(x2, y2, z2);
+    glm::vec3 v3(x3, y3, z3);
+
+
+    v1 += v2;
+    ASSERT_FLOAT_EQ(v1.x, x1 + x2) << "Check that v1.x is equal to x1 + x2";
+    ASSERT_FLOAT_EQ(v1.y, y1 + y2) << "Check that v1.y is equal to y1 + y2";
+    ASSERT_FLOAT_EQ(v1.z, z1 + z2) << "Check that v1.z is equal to z1 + z2";
+
+    v1 += v3;
+    ASSERT_FLOAT_EQ(v1.x, x1 + x2 + x3) << "Check that v1.x is equal to x1 + x2 + x3";
+    ASSERT_FLOAT_EQ(v1.y, y1 + y2 + y3) << "Check that v1.y is equal to y1 + y2 + y3";
+    ASSERT_FLOAT_EQ(v1.z, z1 + z2 + z3) << "Check that v1.z is equal to z1 + z2 + z3";
+}
+
+TEST(vec3Operators, OperatorMinusEqual){
+    float x1, x2, x3;
+    float y1, y2, y3;
+    float z1, z2, z3;
+
+
+    x1 = 0.5f;  x2 = 1.0f;  x3 = 10.0f;
+    y1 = 0.7f;  y2 = 1.5f;  y3 = 15.2f;
+    z1 = 02.7f; z2 = 12.5f; z3 = 125.2f;
+
+
+
+    glm::vec3 v1(x1, y1, z1);
+    glm::vec3 v2(x2, y2, z2);
+    glm::vec3 v3(x3, y3, z3);
+
+    v1 -= v2;
+    ASSERT_FLOAT_EQ(v1.x, x1 - x2) << "Check that v1.x is equal to x1 - x2";
+    ASSERT_FLOAT_EQ(v1.y, y1 - y2) << "Check that v1.y is equal to y1 - y2";
+    ASSERT_FLOAT_EQ(v1.z, z1 - z2) << "Check that v1.z is equal to z1 - z2";
+
+    v1 -= v3;
+    ASSERT_FLOAT_EQ(v1.x, x1 - x2 - x3) << "Check that v1.x is equal to x1 - x2 - x3";
+    ASSERT_FLOAT_EQ(v1.y, y1 - y2 - y3) << "Check that v1.y is equal to y1 - y2 - y3";
+    ASSERT_FLOAT_EQ(v1.z, z1 - z2 - z3) << "Check that v1.z is equal to z1 - z2 - z3";
+}
+
+TEST(vec3Operators, OperatorMultiplicationEqual){
+    float x1, x2, x3;
+    float y1, y2, y3;
+    float z1, z2, z3;
+
+
+    x1 = 0.5f;
+    y1 = 0.7f;
+    z1 = 02.7f;
+
+
+
+    glm::vec3 v1(x1, y1, z1);
+
+
+
+    v1 *= 2.0f;
+    ASSERT_FLOAT_EQ(v1.x, x1 * 2.0f) << "Check that v1.x is equal to x1 2.0f";
+    ASSERT_FLOAT_EQ(v1.y, y1 * 2.0f) << "Check that v1.y is equal to y1 2.0f";
+    ASSERT_FLOAT_EQ(v1.z, z1 * 2.0f) << "Check that v1.z is equal to z1 2.0f";
+
+    v1 *= 3.0f;
+    ASSERT_FLOAT_EQ(v1.x, x1 * 2.0f * 3.0f) << "Check that v1.x is equal to x1 * 2.0f * 3.0f";
+    ASSERT_FLOAT_EQ(v1.y, y1 * 2.0f * 3.0f) << "Check that v1.y is equal to y1 * 2.0f * 3.0f";
+    ASSERT_FLOAT_EQ(v1.z, z1 * 2.0f * 3.0f) << "Check that v1.z is equal to z1 * 2.0f * 3.0f";
+}
+
 
 // -------------------- Methods Tests --------------------
 TEST(vec3Methods, LengthMethod){

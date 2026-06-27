@@ -3,7 +3,7 @@
 
 #include "config.h"
 
-struct mesh
+struct Mesh
 {
 
     private:
@@ -14,9 +14,9 @@ struct mesh
     std::vector<float> vertices;
     std::vector<uint32_t> indices;
 
-    mesh();
-    mesh(std::vector<float>&& ver, std::vector<uint32_t>&& ind);
-    ~mesh();
+    Mesh();
+    Mesh(std::vector<float>&& ver, std::vector<uint32_t>&& ind);
+    ~Mesh();
 
 
     /*
@@ -26,6 +26,14 @@ struct mesh
         output: none
     */
     void upload();
+
+    /*
+        Function checks if mesh is uploaded.
+
+        input:none
+        output: true if uploaded, false otherwise
+    */
+    bool is_uploaded();
 
     /*
         Function draws the mash on the screen

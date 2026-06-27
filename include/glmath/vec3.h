@@ -16,7 +16,7 @@ namespace glm{
 
         // Constructors
         vec3();
-        vec3(float x, float y, float z);
+        vec3(float nx, float ny, float nz);
         vec3(const vec2& v);
         vec3(const vec4& v);
         vec3(const vec3& other);
@@ -27,6 +27,11 @@ namespace glm{
         vec3 operator+(const vec3& other) const;
         vec3 operator-(const vec3& other) const;
         vec3 operator*(const float num) const;
+
+        vec3& operator+=(const vec3& other);
+        vec3& operator-=(const vec3& other);
+        vec3& operator*=(const float num);
+
 
         // Methods
         float length() const;

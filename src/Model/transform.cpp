@@ -1,27 +1,32 @@
 #include "Model/transform.h"
 
 
-transform::transform() {}
+Transform::Transform() {
+    translation = glm::vec3(0.0f, 0.0f, 0.0f);
+    rotation = glm::vec3(0.0f, 0.0f, 0.0f);
+    scale = glm::vec3(1.0f, 1.0f, 1.0f);
+}
 
-transform::transform(const glm::vec3& trans, const glm::vec3& rot){
+Transform::Transform(const glm::vec3& trans, const glm::vec3& rot){
     translation = trans; 
     rotation = rot;
 }
 
-transform::transform(const glm::vec3& trans, const glm::vec3& rot, const glm::vec3& scl){
+Transform::Transform(const glm::vec3& trans, const glm::vec3& rot, const glm::vec3& scl){
     translation = trans; 
     rotation = rot;
     scale = scl;
 }
 
-transform::~transform(){
+Transform::~Transform(){
 
 }
 
 
 
-glm::mat4 transform::getMatrix() const {
-    glm::mat4 m;
+glm::mat4 Transform::getMatrix() const {
 
-    return m;
+    return  glm::create_rotation_matrix(rotation) * 
+            glm::create_traslation_matrix(translation) * 
+            glm::create_scale_matrix(scale);
 }

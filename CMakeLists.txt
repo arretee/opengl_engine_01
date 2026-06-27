@@ -47,6 +47,7 @@ add_executable(opengl_engine_01
     src/Model/mesh.cpp          include/Model/mesh.h
     src/Model/object.cpp        include/Model/object.h
     src/Model/transform.cpp     include/Model/transform.h
+    src/Model/meshes_manager.cpp        include/Model/meshes_manager.h
 
 
     # View

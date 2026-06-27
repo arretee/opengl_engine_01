@@ -192,7 +192,101 @@ TEST(vec4Operators, OperatorMultiplication){
     ASSERT_FLOAT_EQ(v.y, y1 * n * n) << "Check that v.y is equal to v1.y * n * n";
     ASSERT_FLOAT_EQ(v.z, z1 * n * n) << "Check that v.z is equal to v1.z * n * n";
     ASSERT_FLOAT_EQ(v.w, w1 * n * n) << "Check that v.w is equal to v1.w * n * n";
+}
 
+TEST(vec4Operators, OperatorPlusEqual){
+    float x1, x2, x3;
+    float y1, y2, y3;
+    float z1, z2, z3;
+    float w1, w2, w3;
+
+
+    x1 = 0.5f;  x2 = 1.0f;  x3 = 10.0f;
+    y1 = 0.7f;  y2 = 1.5f;  y3 = 15.2f;
+    z1 = 02.7f; z2 = 12.5f; z3 = 125.2f;
+    w1 = 0.47f; w2 = 1.54f; w3 = 15.24f;
+
+
+
+    glm::vec4 v1(x1, y1, z1, w1);
+    glm::vec4 v2(x2, y2, z2, w2);
+    glm::vec4 v3(x3, y3, z3, w3);
+
+
+    v1 += v2;
+    ASSERT_FLOAT_EQ(v1.x, x1 + x2) << "Check that v1.x is equal to x1 + x2";
+    ASSERT_FLOAT_EQ(v1.y, y1 + y2) << "Check that v1.y is equal to y1 + y2";
+    ASSERT_FLOAT_EQ(v1.z, z1 + z2) << "Check that v1.z is equal to z1 + z2";
+    ASSERT_FLOAT_EQ(v1.w, w1 + w2) << "Check that v1.w is equal to w1 + w2";
+
+    v1 += v3;
+    ASSERT_FLOAT_EQ(v1.x, x1 + x2 + x3) << "Check that v1.x is equal to x1 + x2 + x3";
+    ASSERT_FLOAT_EQ(v1.y, y1 + y2 + y3) << "Check that v1.y is equal to y1 + y2 + y3";
+    ASSERT_FLOAT_EQ(v1.z, z1 + z2 + z3) << "Check that v1.z is equal to z1 + z2 + z3";
+    ASSERT_FLOAT_EQ(v1.w, w1 + w2 + w3) << "Check that v1.w is equal to w1 + w2 + w3";
+}
+
+TEST(vec4Operators, OperatorMinusEqual){
+    float x1, x2, x3;
+    float y1, y2, y3;
+    float z1, z2, z3;
+    float w1, w2, w3;
+
+
+    x1 = 0.5f;  x2 = 1.0f;  x3 = 10.0f;
+    y1 = 0.7f;  y2 = 1.5f;  y3 = 15.2f;
+    z1 = 02.7f; z2 = 12.5f; z3 = 125.2f;
+    w1 = 0.47f; w2 = 1.54f; w3 = 15.24f;
+
+
+
+    glm::vec4 v1(x1, y1, z1, w1);
+    glm::vec4 v2(x2, y2, z2, w2);
+    glm::vec4 v3(x3, y3, z3, w3);
+
+
+    v1 -= v2;
+    ASSERT_FLOAT_EQ(v1.x, x1 - x2) << "Check that v1.x is equal to x1 - x2";
+    ASSERT_FLOAT_EQ(v1.y, y1 - y2) << "Check that v1.y is equal to y1 - y2";
+    ASSERT_FLOAT_EQ(v1.z, z1 - z2) << "Check that v1.z is equal to z1 - z2";
+    ASSERT_FLOAT_EQ(v1.w, w1 - w2) << "Check that v1.w is equal to w1 - w2";
+
+    v1 -= v3;
+    ASSERT_FLOAT_EQ(v1.x, x1 - x2 - x3) << "Check that v1.x is equal to x1 - x2 - x3";
+    ASSERT_FLOAT_EQ(v1.y, y1 - y2 - y3) << "Check that v1.y is equal to y1 - y2 - y3";
+    ASSERT_FLOAT_EQ(v1.z, z1 - z2 - z3) << "Check that v1.z is equal to z1 - z2 - z3";
+    ASSERT_FLOAT_EQ(v1.w, w1 - w2 - w3) << "Check that v1.w is equal to w1 - w2 - w3";
+}
+
+TEST(vec4Operators, OperatorMultiplicationEqual){
+    float x1, x2, x3;
+    float y1, y2, y3;
+    float z1, z2, z3;
+    float w1, w2, w3;
+
+
+    x1 = 0.5f;
+    y1 = 0.7f;
+    z1 = 02.7f;
+    w1 = 0.47f;
+
+
+
+    glm::vec4 v1(x1, y1, z1, w1);
+
+
+
+    v1 *= 2.0f;
+    ASSERT_FLOAT_EQ(v1.x, x1 * 2.0f) << "Check that v1.x is equal to x1 2.0f";
+    ASSERT_FLOAT_EQ(v1.y, y1 * 2.0f) << "Check that v1.y is equal to y1 2.0f";
+    ASSERT_FLOAT_EQ(v1.z, z1 * 2.0f) << "Check that v1.z is equal to z1 2.0f";
+    ASSERT_FLOAT_EQ(v1.w, w1 * 2.0f) << "Check that v1.w is equal to w1 2.0f";
+
+    v1 *= 3.0f;
+    ASSERT_FLOAT_EQ(v1.x, x1 * 2.0f * 3.0f) << "Check that v1.x is equal to x1 * 2.0f * 3.0f";
+    ASSERT_FLOAT_EQ(v1.y, y1 * 2.0f * 3.0f) << "Check that v1.y is equal to y1 * 2.0f * 3.0f";
+    ASSERT_FLOAT_EQ(v1.z, z1 * 2.0f * 3.0f) << "Check that v1.z is equal to z1 * 2.0f * 3.0f";
+    ASSERT_FLOAT_EQ(v1.w, w1 * 2.0f * 3.0f) << "Check that v1.w is equal to w1 * 2.0f * 3.0f";
 }
 
 

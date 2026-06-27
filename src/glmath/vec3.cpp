@@ -4,24 +4,23 @@
 // -------------------- Constructors --------------------
 glm::vec3::vec3()
 {
-    for(int i = 0; i < 3; i++) entries[i] = 0.0f;
-
+    x = 0.0f; y = 0.0f; z = 0.0f;
 }
-glm::vec3::vec3(float x, float y, float z)
+glm::vec3::vec3(float nx, float ny, float nz)
 {
-    entries[0] = x; entries[1] = y; entries[2] = z;
+    x = nx; y = ny; z = nz;
 }
 glm::vec3::vec3(const vec2& v)
 {
-    entries[0] = v.entries[0];
-    entries[1] = v.entries[1];
-    entries[2] = 0.0f;
+    x = v.x;
+    y = v.y;
+    z = 0.0f;
 }
 glm::vec3::vec3(const vec4& v)
 {
-    entries[0] = v.entries[0];
-    entries[1] = v.entries[1];
-    entries[2] = v.entries[2];
+    x = v.x;
+    y = v.y;
+    z = v.z;
 }
 glm::vec3::vec3(const vec3 &other)
 {
@@ -51,6 +50,27 @@ glm::vec3 glm::vec3::operator-(const vec3 &other) const
 glm::vec3 glm::vec3::operator*(const float num) const
 {
     return vec3(x * num, y * num, z * num);
+}
+glm::vec3& glm::vec3::operator+=(const vec3& other) {
+    x += other.x;
+    y += other.y;
+    z += other.z;
+
+    return *this;
+}
+glm::vec3& glm::vec3::operator-=(const vec3& other) {
+    x -= other.x;
+    y -= other.y;
+    z -= other.z;
+
+    return *this;
+}
+glm::vec3& glm::vec3::operator*=(const float num) {
+    x *= num;
+    y *= num;
+    z *= num;
+
+    return *this;
 }
 
 

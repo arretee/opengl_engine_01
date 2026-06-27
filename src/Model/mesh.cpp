@@ -1,25 +1,25 @@
 #include "Model/mesh.h"
 
-mesh::mesh(){
+Mesh::Mesh(){
     indices_count = 0;
 
     VAO = 0; VBO = 0; EBO = 0;
 }
 
-mesh::mesh(std::vector<float>&& ver, std::vector<uint32_t>&& ind) {
+Mesh::Mesh(std::vector<float>&& ver, std::vector<uint32_t>&& ind) {
     vertices = std::move(ver);
     indices = std::move(ind);
 
     VAO = 0; VBO = 0; EBO = 0;
 }
 
-mesh::~mesh(){
+Mesh::~Mesh(){
     glDeleteVertexArrays(1, &VAO);
     glDeleteBuffers(1, &VBO);
     glDeleteBuffers(1, &EBO);
 }
 
-void mesh::upload(){
+void Mesh::upload(){
     if(VAO != 0)
     {
         glDeleteVertexArrays(1, &VAO);
@@ -55,7 +55,11 @@ void mesh::upload(){
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(uint32_t), indices.data(), GL_STATIC_DRAW);
 }
 
-void mesh::draw(GLenum mode) const{
+bool Mesh::is_uploaded(){
+    return VAO == 0;
+}
+
+void Mesh::draw(GLenum mode) const{
     if (VAO == 0) {std::cout << "Draw Error: Mesh is not uploaded"; return;}
     
     glBindVertexArray(VAO);

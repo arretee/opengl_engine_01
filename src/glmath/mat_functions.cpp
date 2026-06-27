@@ -33,6 +33,47 @@ glm::mat4 glm::create_rotation_z_matrix(float angle)
     return m;
 }
 
+glm::mat4 glm::create_rotation_y_matrix(float angle)
+{
+    glm::mat4 m;
+
+    float rad = angle * M_PI / 180;
+
+    float c = cosf(rad);
+    float s = sinf(rad);
+
+
+    m.entries[0] = c;        m.entries[4] = 0.0f;   m.entries[8] = s;        m.entries[12] = 0.0f;
+    m.entries[1] = 0.0f;     m.entries[5] = 1.0f;   m.entries[9] = 0.0f;     m.entries[13] = 0.0f;
+    m.entries[2] = -s;       m.entries[6] = 0.0f;   m.entries[10] = c;       m.entries[14] = 0.0f;
+    m.entries[3] = 0.0f;     m.entries[7] = 0.0f;   m.entries[11] = 0.0f;    m.entries[15] = 1.0f;
+
+    return m;
+}
+
+glm::mat4 glm::create_rotation_x_matrix(float angle)
+{
+    glm::mat4 m;
+
+    float rad = angle * M_PI / 180;
+
+    float c = cosf(rad);
+    float s = sinf(rad);
+
+
+    m.entries[0] = 1.0f;     m.entries[4] = 0.0f;   m.entries[8] = 0.0f;     m.entries[12] = 0.0f;
+    m.entries[1] = 0.0f;     m.entries[5] = c;      m.entries[9] = -s;       m.entries[13] = 0.0f;
+    m.entries[2] = 0.0f;     m.entries[6] = s;      m.entries[10] = c;       m.entries[14] = 0.0f;
+    m.entries[3] = 0.0f;     m.entries[7] = 0.0f;   m.entries[11] = 0.0f;    m.entries[15] = 1.0f;
+
+    return m;
+}
+
+glm::mat4 glm::create_rotation_matrix(glm::vec3 v)
+{
+    return create_rotation_z_matrix(v.z) * create_rotation_y_matrix(v.y) * create_rotation_x_matrix(v.x);
+}
+
 glm::mat4 glm::create_view_transform_matrix(const vec3 &from, const vec3 &to)
 {
     mat4 m;
@@ -75,6 +116,17 @@ glm::mat4 glm::create_projection_matrix(float aspect, float pov, float n, float 
     m.entries[10] = -(n + f) / (n - f);
     m.entries[11] = -1.0f;
     m.entries[14] = 2 * n * f / (n - f);
+
+    return m;
+}
+
+glm::mat4 glm::create_scale_matrix(const glm::vec3& scale){
+    mat4 m;
+
+    m.entries[0] = scale.x;  m.entries[4] = 0.0f;    m.entries[8] = 0.0f;     m.entries[12] = 0.0f;
+    m.entries[1] = 0.0f;     m.entries[5] = scale.y; m.entries[9] = 0.0f;     m.entries[13] = 0.0f;
+    m.entries[2] = 0.0f;     m.entries[6] = 0.0f;    m.entries[10] = scale.z; m.entries[14] = 0.0f;
+    m.entries[3] = 0.0f;     m.entries[7] = 0.0f;    m.entries[11] = 0.0f;    m.entries[15] = 1.0f;
 
     return m;
 }

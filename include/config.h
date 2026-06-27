@@ -5,13 +5,13 @@
 #include <GLFW/glfw3.h>
 
 #include <iostream>
-
 #include <fstream>
 #include <sstream>
+
 #include <string>
-
 #include <vector>
-
+#include <unordered_map>
+#include <memory>
 
 #include "triangle_mesh.h"
 #include "glmath/glmath.h"
@@ -21,6 +21,7 @@
 #include "Model/mesh.h"
 #include "Model/transform.h"
 #include "Model/object.h"
+#include "Model/meshes_manager.h"
 
 
 #endif
