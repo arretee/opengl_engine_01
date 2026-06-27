@@ -1,6 +1,18 @@
 #pragma once
 
-#include "config.h"
+#include <iostream>
+
+#include <fstream>
+#include <sstream>
+
+#include <string>
+#include <vector>
+#include <unordered_map>
+
+#include <memory>
+
+
+#include "Model/mesh.h"
 
 class MeshesManager {
     private:

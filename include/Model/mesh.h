@@ -1,7 +1,13 @@
 #ifndef MESH_H
 #define MESH_H
 
-#include "config.h"
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+
+#include <iostream>
+
+#include <vector>
+
 
 struct Mesh
 {

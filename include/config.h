@@ -25,6 +25,7 @@
 
 // View
 #include "View/camera.h"
+#include "View/shader.h"
 
 
 #endif

@@ -2,7 +2,7 @@
 
 MeshesManager::MeshesManager() { }
 
-MeshesManager::~MeshesManager() { }
+MeshesManager::~MeshesManager() = default;
 
 std::shared_ptr<Mesh> MeshesManager::load_mesh(const std::string &path)
 {
@@ -11,7 +11,7 @@ std::shared_ptr<Mesh> MeshesManager::load_mesh(const std::string &path)
 
 void MeshesManager::create_mesh(const std::string& path, std::vector<float>&& vertices, std::vector<uint32_t>&& indices)
 {
-    meshes[path] = std::make_shared<Mesh>(Mesh(std::move(vertices), std::move(indices)));
+    meshes[path] = std::make_shared<Mesh>(std::move(vertices), std::move(indices));
 }
 
 

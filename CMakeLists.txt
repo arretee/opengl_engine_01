@@ -49,6 +49,8 @@ add_executable(opengl_engine_01
     # View
     src/View/camera.cpp         include/View/camera.h
     src/View/render.cpp         include/View/render.h
+    src/View/shader.cpp         include/View/shader.h
+
 
     
     # Controller

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "config.h"
+#include "glmath/glmath.h"
 
 
 class Camera {

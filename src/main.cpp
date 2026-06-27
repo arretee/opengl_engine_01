@@ -109,7 +109,11 @@ int main()
     manager.get_mesh("Cube")->upload();
     Transform t = Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
     t.scale = glm::vec3(0.5f, 0.5f, 0.5f);
-    Object cube = Object(manager.get_mesh("Cube"), t);
+    Object cube = Object(
+        manager.get_mesh("Cube"),
+        t, 
+        std::make_shared<Shader>("../src/shaders/vertex.txt", "../src/shaders/fragment.txt")
+    );
 
     // View Data
     Camera camera;
