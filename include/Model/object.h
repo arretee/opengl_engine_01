@@ -2,9 +2,11 @@
 
 #include <memory>
 
-#include "Model/transform.h"
 #include "View/shader.h"
 
+#include "Model/transform.h"
+#include "Model/object.h"
+#include "Model/mesh.h"
 
 struct Mesh;
 

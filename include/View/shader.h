@@ -17,24 +17,6 @@
 
 
 class Shader{
-    public:
-        Shader(const std::string& vertex_filepath, const std::string& fragment_filepath);
-        ~Shader();
-
-        Shader(const Shader&) = delete;
-        Shader& operator=(const Shader&) = delete;
-
-        void use() const;
-
-        // Uniforms 
-        void set_bool(const std::string& name, bool value);
-        void set_int(const std::string& name, int value);
-        void set_float(const std::string& name, float value);
-
-        void set_mat4(const std::string& name, const glm::mat4& mat);
-        void set_vec3(const std::string& name, const glm::vec3& vec);
-
-
     private:
         uint32_t program_id;
         std::unordered_map<std::string, GLint> uniform_cache;
@@ -56,4 +38,22 @@ class Shader{
             output: module id
         */
         GLuint compile_shader(GLuint type, const std::string& source);
+
+
+    public:
+        Shader(const std::string& vertex_filepath, const std::string& fragment_filepath);
+        ~Shader();
+
+        Shader(const Shader&) = delete;
+        Shader& operator=(const Shader&) = delete;
+
+        void use() const;
+
+        // Uniforms 
+        void set_bool(const std::string& name, bool value);
+        void set_int(const std::string& name, int value);
+        void set_float(const std::string& name, float value);
+
+        void set_mat4(const std::string& name, const glm::mat4& mat);
+        void set_vec3(const std::string& name, const glm::vec3& vec);
 };

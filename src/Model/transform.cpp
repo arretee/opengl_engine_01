@@ -26,7 +26,5 @@ Transform::~Transform(){
 
 glm::mat4 Transform::get_matrix() const {
 
-    return  glm::create_rotation_matrix(rotation) * 
-            glm::create_traslation_matrix(translation) * 
-            glm::create_scale_matrix(scale);
+    return glm::create_traslation_matrix(translation) * glm::create_rotation_matrix(rotation) * glm::create_scale_matrix(scale);
 }

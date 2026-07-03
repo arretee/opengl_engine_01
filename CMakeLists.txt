@@ -50,6 +50,7 @@ add_executable(opengl_engine_01
     src/View/camera.cpp         include/View/camera.h
     src/View/render.cpp         include/View/render.h
     src/View/shader.cpp         include/View/shader.h
+    src/View/scene.cpp          include/View/scene.h
 
 
     

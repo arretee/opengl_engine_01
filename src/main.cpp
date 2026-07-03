@@ -1,8 +1,9 @@
 // Include libs
 #include "config.h"
+#include <View/render.h>
 
-unsigned int make_shader(const std::string& vertex_filepath, const std::string& fragment_filepath);
-unsigned int make_module(const std::string& filepath, unsigned int module_type);
+GLFWwindow* init_opengl(float window_w, float window_h);
+
 
 std::vector<float> get_positions()
 {
@@ -52,19 +53,95 @@ std::vector<uint32_t> get_elements()
 
 int main()
 {
-    // window data 
-    GLFWwindow* window = nullptr;
-
+    // data 
     unsigned int window_w = 1280;
     unsigned int window_h = 720;
     float aspect_ratio = (float) window_w / (float) window_h;    
+    float pov = 45; 
+    float near = 0.01f;
+    float far = 100.0f;
+
+    GLFWwindow* window = init_opengl(window_w, window_h);
+
+    // Meneger
+    MeshesManager manager;
+    manager.create_mesh("Cube", get_positions(), get_elements());
+    manager.get_mesh("Cube")->upload();
+
+    // Scene
+        // Create object data
+
+    Scene scene;
+    scene.add_object(
+        std::make_shared<Object>(
+            manager.get_mesh("Cube"),
+            Transform(glm::vec3(-1.5f, -1.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)), 
+            std::make_shared<Shader>("../src/shaders/vertex.txt", "../src/shaders/fragment.txt")
+        )
+    );
+
+        scene.add_object(
+        std::make_shared<Object>(
+            manager.get_mesh("Cube"),
+            Transform(glm::vec3(1.5f, 1.5f, 0.0f), glm::vec3(1.0f, 1.0f, 1.0f)), 
+            std::make_shared<Shader>("../src/shaders/vertex.txt", "../src/shaders/fragment.txt")
+        )
+    );
+
+
+    
+
+    // Render
+    Render render(aspect_ratio, pov, near, far);
+    render.camera.set_camera_pos(glm::vec3(30.0f, 30.0f, 30.0f));
+    render.camera.set_camera_target(glm::vec3(0.0f, 0.0f, 0.0f));
+
+
+    glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
+
+    // Main Loop
+    while (!glfwWindowShouldClose(window))
+    {
+        // poll the events
+        glfwPollEvents();
+
+        // Clear window
+        glClearColor(0.25f, 0.5f, 0.75f, 1.0f);
+        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
+        scene.get_object(0)->transform.rotation = glm::vec3(1.0f, 1.0f, 0.0f) * 5.0f * glfwGetTime();
+        scene.get_object(1)->transform.rotation = glm::vec3(1.0f, 1.0f, 0.0f) * 5.0f * glfwGetTime();
+
+
+
+        render.render(scene);
+
+
+        // Update the window 
+        glfwSwapBuffers(window);
+    }
+
+
+    // Delete stuff
+
+    // Terminate glfw
+    glfwTerminate();
+    return 0;
+}
+
+GLFWwindow* init_opengl(float window_w, float window_h){
+    GLFWwindow* window = nullptr;
 
 
     // Init OpenGL 
     if (!glfwInit())
     {
         std::cout << "Failed to Init GLFW - main.cpp" << std::endl;
-        return -1;
+        return nullptr;
     }
 
     // Create window 
@@ -76,7 +153,7 @@ int main()
     {
         std::cout << "Failed to create window\n";
         glfwTerminate();
-        return -1;
+        return nullptr;
     }
 
     // Set context
@@ -86,188 +163,8 @@ int main()
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
     {
         std::cout << "Failed to initialize GLAD\n";
-        return -1;
+        return nullptr;
     }
 
-
-    // Create shader
-    unsigned int shader = make_shader(
-        "../src/shaders/vertex.txt",
-        "../src/shaders/fragment.txt"
-    );
-
-    // Use correct shader
-    glUseProgram(shader);
-
-
-
-    // Translation data
-    MeshesManager manager;
-
-    // Create object
-    manager.create_mesh("Cube", get_positions(), get_elements());
-    manager.get_mesh("Cube")->upload();
-    Transform t = Transform(glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 0.0f, 0.0f));
-    t.scale = glm::vec3(0.5f, 0.5f, 0.5f);
-    Object cube = Object(
-        manager.get_mesh("Cube"),
-        t, 
-        std::make_shared<Shader>("../src/shaders/vertex.txt", "../src/shaders/fragment.txt")
-    );
-
-    // View Data
-    Camera camera;
-    camera.set_camera_pos(glm::vec3(10.0f, 5.0f, 20.0f));
-    camera.set_camera_target(glm::vec3(0.0f, 0.0f, 0.0f));
-
-    // Projection
-    float pov = 45; 
-    float near = 0.01f;
-    float far = 100.0f;
-
-
-    // translation + rotation + view matrix
-    glm::mat4 vrt = cube.transform.get_matrix() * camera.get_view_matrix();
-    unsigned int vrt_location = glGetUniformLocation(shader, "vrt");
-
-
-    // Projection
-    glm::mat4 projection = glm::create_projection_matrix(aspect_ratio, pov, near, far);
-    unsigned int projection_location = glGetUniformLocation(shader, "projection");
-    glUniformMatrix4fv(projection_location, 1, GL_FALSE, projection.entries);
-    std::cout << "projection "; projection.print_gl(); std::cout << std::endl;
-
-
-    glEnable(GL_DEPTH_TEST);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
-    glFrontFace(GL_CCW);
-
-    // Main Loop
-    while (!glfwWindowShouldClose(window))
-    {
-        glUseProgram(shader);   
-
-        // poll the events
-        glfwPollEvents();
-
-
-        // Clear window
-        glClearColor(0.25f, 0.5f, 0.75f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-        // Update cube.transform
-        cube.transform.rotation = glm::vec3(20.0f, 5.0f, 5.0f) * 5 * glfwGetTime();
-
-
-        // Update vrt 
-        vrt = camera.get_view_matrix() * cube.transform.get_matrix();
-        glUniformMatrix4fv(vrt_location, 1, GL_FALSE, vrt.entries);
-
-        // update projection
-        projection = glm::create_projection_matrix(aspect_ratio, pov, near, far);
-        glUniformMatrix4fv(projection_location, 1, GL_FALSE, projection.entries);
-
-
-        // Draw
-        cube.mesh->draw(GL_TRIANGLES);
-
-        // Update the window 
-        glfwSwapBuffers(window);
-    }
-
-
-    // Delete stuff
-    glDeleteProgram(shader);
-
-    // Terminate glfw
-    glfwTerminate();
-    return 0;
-}
-
-/*
-    Function is linking shaders
-
-    input: vertext_filepath, fragment_filepath
-    output: shader
-*/
-unsigned int make_shader(const std::string& vertex_filepath, const std::string& fragment_filepath) {
-
-    std::vector<unsigned int> modules;
-
-    modules.push_back(make_module(vertex_filepath, GL_VERTEX_SHADER));
-    modules.push_back(make_module(fragment_filepath, GL_FRAGMENT_SHADER));
-
-    unsigned int shader = glCreateProgram();
-    for (unsigned int shaderModule : modules)
-    {
-        glAttachShader(shader, shaderModule);
-    }
-    glLinkProgram(shader);
-
-
-    // Check for errors on linking
-    int status;
-    glGetProgramiv(shader, GL_LINK_STATUS, &status);
-
-    if (!status){
-        char errorLog[1024];
-        glGetProgramInfoLog(shader, 1024, NULL, errorLog);
-        std::cout << "Shader Linking error:\n" << errorLog << std::endl;
-    }
-
-
-    // Deleting 
-    for (unsigned int shaderModule : modules)
-    {
-        glDeleteShader(shaderModule);
-    }
-
-    return shader;
- }
-
-/*
-    Function is making a module from a file
-
-    input: file path(string ref), file type(int)
-    output: module
-*/
-unsigned int make_module(const std::string& filepath, unsigned int module_type){
-    std::ifstream file;
-    std::stringstream bufferLines;
-    std::string line;
-
-    // Open and read a file
-    file.open(filepath);
-    
-    while (std::getline(file, line)) {
-        bufferLines << line << "\n";
-    }
-
-    file.close();
-
-    // Convert buffer to string and eraise the buffer
-    std::string shaderSource = bufferLines.str();
-    bufferLines.str("");
-
-    // Convert CPP string into a C string 
-    const char* shaderSrc = shaderSource.c_str();
-
-    
-    // Create  shader module and attach it and compile it 
-    unsigned int shaderModule = glCreateShader(module_type);
-    glShaderSource(shaderModule, 1, &shaderSrc, NULL);
-    glCompileShader(shaderModule);
-
-    // Check if shader compiled
-    int status;
-    glGetShaderiv(shaderModule,GL_COMPILE_STATUS, &status);
-
-    if (!status){
-        char errorLog[1024];
-        glGetShaderInfoLog(shaderModule, 1024, NULL, errorLog);
-        std::cout << "Shader Module compilation error:\n" << errorLog << std::endl;
-    }
-
-    return shaderModule;
+    return window;
 }
