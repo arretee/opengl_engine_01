@@ -256,6 +256,27 @@ TEST(vec3Operators, OperatorMultiplicationEqual){
     ASSERT_FLOAT_EQ(v1.z, z1 * 2.0f * 3.0f) << "Check that v1.z is equal to z1 * 2.0f * 3.0f";
 }
 
+TEST(vec3Operators, OperatorEquation){
+    float x1, x2, x3;
+    float y1, y2, y3;
+    float z1, z2, z3;
+
+
+    x1 = 0.5f;  x2 = 1.0f;  x3 = 0.5f;
+    y1 = 0.7f;  y2 = 1.5f;  y3 = 0.7f;
+    z1 = 02.7f; z2 = 12.5f; z3 = 2.7f;
+
+
+
+    glm::vec3 v1(x1, y1, z1);
+    glm::vec3 v2(x2, y2, z2);
+    glm::vec3 v3(x3, y3, z3);
+
+
+    ASSERT_EQ(v1 == v2, false);
+    ASSERT_EQ(v1 == v3, true);
+    ASSERT_EQ(v2 == v3, false);
+}
 
 // -------------------- Methods Tests --------------------
 TEST(vec3Methods, LengthMethod){

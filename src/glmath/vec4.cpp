@@ -80,6 +80,11 @@ glm::vec4& glm::vec4::operator*=(const float num) {
     return *this;
 }
 
+bool glm::vec4::operator==(const vec4& other) const{
+    return x == other.x && y == other.y && z == other.z && w == other.w;
+}
+
+
 // -------------------- Methods --------------------
 float glm::vec4::length() const
 {

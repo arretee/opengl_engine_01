@@ -57,6 +57,9 @@ glm::vec2& glm::vec2::operator*=(const float num) {
     return *this;
 }
 
+bool glm::vec2::operator==(const vec2& other) const{
+    return x == other.x && y == other.y;
+}
 
 // -------------------- Methods --------------------
 float glm::vec2::length() const {

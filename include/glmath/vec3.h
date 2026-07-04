@@ -32,6 +32,8 @@ namespace glm{
         vec3& operator-=(const vec3& other);
         vec3& operator*=(const float num);
 
+        bool operator==(const vec3& other) const;
+
 
         // Methods
         float length() const;

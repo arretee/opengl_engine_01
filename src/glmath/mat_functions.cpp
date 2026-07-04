@@ -84,7 +84,7 @@ glm::mat4 glm::create_view_transform_matrix(const vec3 &from, const vec3 &to)
     // check if f and g is not an same or reversed vectors
     if (fabs(dot_product(f, global_up)) > 0.99f)
     {
-        global_up = vec3(0.0f, 1.0f, 0.0f); // choose other global up
+        global_up = f + glm::vec3(0.0f, 1.0f, 0.0f); // choose other global up
     }
 
 

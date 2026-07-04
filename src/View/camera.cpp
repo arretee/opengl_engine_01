@@ -23,6 +23,20 @@ glm::vec3 Camera::get_camera_pos() const {
 
 void Camera::set_camera_target(const glm::vec3 &target)
 {
+
+    // Check that camera target is not the camera pos
+    if(target == camera_pos)
+    {
+        forward = glm::vec3(0.0f, 0.0f, -1.0f);
+        right   = glm::vec3(1.0f, 0.0f, 0.0f);
+        up      = glm::vec3(0.0f, 1.0f, 0.0f);
+
+        yaw = -90.0f;
+        pitch = 0.0f;
+
+        return;
+    }
+
     // Calculate vectors
     glm::vec3 global_up = glm::vec3(0.0f, 1.0f, 0.0f);
     forward = glm::normalize(target - camera_pos);
@@ -76,7 +90,7 @@ void Camera::upadate_vectors(){
     // check if forward and g is not an same or reversed vectors
     if (fabs(glm::dot_product(forward, global_up)) > 0.99f)
     {
-        global_up = glm::vec3(0.0f, 0.0f, 1.0f); // choose other global up
+        global_up = glm::normalize(forward) + glm::vec3(0.0f, 1.0f, 0.0f); // choose other global up
     }
 
     // Get right, up

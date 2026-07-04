@@ -73,6 +73,9 @@ glm::vec3& glm::vec3::operator*=(const float num) {
     return *this;
 }
 
+bool glm::vec3::operator==(const vec3& other) const{
+    return x == other.x && y == other.y && z == other.z;
+}
 
 // -------------------- Methods --------------------
 float glm::vec3::length() const

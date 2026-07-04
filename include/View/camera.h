@@ -27,6 +27,7 @@ class Camera {
             camera_pos set function 
         */
         void set_camera_pos(const glm::vec3& pos);
+        
         /* 
             camera_pos get function s
         */
