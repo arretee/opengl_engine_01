@@ -1,0 +1,15 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Launch opengl_engine_01",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/opengl_engine_01",
+            "cwd": "${workspaceFolder}/src",
+            "MIMode": "gdb",
+            "preLaunchTask": "Build"
+            
+        }
+    ]
+}
