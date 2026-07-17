@@ -8,6 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Add OpenGL for graphics
 find_package(OpenGL REQUIRED)
 
+#CHANGES
 
 # Add GoogleTest for testing
 include(FetchContent)
