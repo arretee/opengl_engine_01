@@ -8,8 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Add OpenGL for graphics
 find_package(OpenGL REQUIRED)
 
-#CHANGES 
-#changes 2
 
 # Add GoogleTest for testing
 include(FetchContent)
@@ -19,6 +17,17 @@ FetchContent_Declare(
 )
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
+
+
+# Add GLFW
+FetchContent_Declare(
+    glfw
+    GIT_REPOSITORY https://github.com/glfw/glfw.git
+    GIT_TAG 3.4
+)
+
+FetchContent_MakeAvailable(glfw)
+
 
 
 # Main project build
