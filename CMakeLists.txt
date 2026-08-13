@@ -36,6 +36,8 @@ add_executable(opengl_engine_01
     include/glad/glad.c
     include/config.h
 
+    src/opengl_functions.cpp include/opengl_functions.h 
+
     #glmath
     src/glmath/glmath.cpp       include/glmath/glmath.h
 
